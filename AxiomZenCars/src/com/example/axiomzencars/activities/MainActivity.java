@@ -1,4 +1,9 @@
-package com.example.axiomzencars;
+package com.example.axiomzencars.activities;
+
+import com.example.axiomzencars.R;
+import com.example.axiomzencars.R.id;
+import com.example.axiomzencars.R.layout;
+import com.example.axiomzencars.R.menu;
 
 import android.app.Activity;
 import android.app.ActionBar;
