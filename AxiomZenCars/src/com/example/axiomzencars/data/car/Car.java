@@ -55,4 +55,11 @@ public class Car {
     public void setRankingCategory(RankingCategory rankingCategory) {
         this.rankingCategory = rankingCategory;
     }
+
+    @Override
+    public String toString() {
+        return "Car [make=" + make + ", model=" + model + ", year=" + year + ", price=" + price + ", description=" + description
+                + ", image=" + image + ", rankingCategory=" + rankingCategory + "]";
+    }
+
 }

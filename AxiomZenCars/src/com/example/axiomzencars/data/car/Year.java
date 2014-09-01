@@ -8,7 +8,13 @@ public class Year {
         this.year = year;
     }
 
-    public int getYear() {
+    public int value() {
         return year;
     }
+
+    @Override
+    public String toString() {
+        return "Year [year=" + year + "]";
+    }
+
 }

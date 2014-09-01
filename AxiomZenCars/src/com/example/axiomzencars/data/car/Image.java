@@ -11,4 +11,10 @@ public class Image {
     public String getUrl() {
         return url;
     }
+
+    @Override
+    public String toString() {
+        return "Image [url=" + url + "]";
+    }
+
 }

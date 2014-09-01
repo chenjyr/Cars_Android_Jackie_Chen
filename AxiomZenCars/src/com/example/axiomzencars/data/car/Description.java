@@ -11,4 +11,9 @@ public class Description {
     public String getDescriptionText() {
         return descriptionText;
     }
+
+    @Override
+    public String toString() {
+        return "Description [descriptionText=" + descriptionText + "]";
+    }
 }

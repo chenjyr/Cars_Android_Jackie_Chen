@@ -12,4 +12,9 @@ public class Model {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return "Model [name=" + name + "]";
+    }
+
 }
