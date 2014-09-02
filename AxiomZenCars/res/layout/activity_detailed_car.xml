@@ -158,14 +158,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp" >
+            android:layout_height="wrap_content" >
 
-            <ImageView
+            <com.example.axiomzencars.view.ScaleImageView
                 android:id="@+id/car_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/image_content_description"
-                android:scaleType="fitXY" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/image_content_description" />
 
             <ProgressBar
                 android:id="@+id/car_image_progress_indicator"
