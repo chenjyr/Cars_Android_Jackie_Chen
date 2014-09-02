@@ -27,6 +27,8 @@ public class CarArrayAdapter extends ArrayAdapter<Car> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        Car car = cars.get(position);
+
         View rowView = inflater.inflate(R.layout.list_item_car, parent, false);
 
         TextView carMakeTextView = (TextView) rowView.findViewById(R.id.car_make_text_view);
@@ -34,12 +36,10 @@ public class CarArrayAdapter extends ArrayAdapter<Car> {
         TextView carYearTextView = (TextView) rowView.findViewById(R.id.car_year_text_view);
         TextView carPriceTextView = (TextView) rowView.findViewById(R.id.car_price_text_view);
 
-        Car car = cars.get(position);
-
         carMakeTextView.setText(car.getModelMake().getMake());
         carModelTextView.setText(car.getModelMake().getModel());
-        carYearTextView.setText(String.valueOf(car.getYear().value()));
-        carPriceTextView.setText(String.valueOf(car.getPrice().value()));
+        carYearTextView.setText(String.format("%d", car.getYear().value()));
+        carPriceTextView.setText(String.format("%d", car.getPrice().value()));
 
         return rowView;
     }

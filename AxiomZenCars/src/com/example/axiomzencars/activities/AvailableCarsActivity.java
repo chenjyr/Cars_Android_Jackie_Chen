@@ -28,7 +28,7 @@ public class AvailableCarsActivity extends Activity implements OnItemClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_cars);
 
-        // TODO : Loading view
+        final View availableCarsProgressIndicator = findViewById(R.id.available_cars_progress_indicator);
 
         ApiRequest.requestAvailableCars(new OnTaskCompletedListener() {
             @Override
@@ -37,6 +37,7 @@ public class AvailableCarsActivity extends Activity implements OnItemClickListen
                 availableCarsListView = (ListView) findViewById(R.id.available_cars_list_view);
                 availableCarsListView.setAdapter(availableCarsListAdapter);
                 availableCarsListView.setOnItemClickListener(AvailableCarsActivity.this);
+                availableCarsProgressIndicator.setVisibility(View.GONE);
             }
         });
     }
