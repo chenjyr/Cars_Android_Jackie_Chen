@@ -13,9 +13,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetailedCarActivity extends Activity {
 
@@ -30,7 +32,15 @@ public class DetailedCarActivity extends Activity {
 
         car = getIntent().getParcelableExtra(AvailableCarsActivity.CAR_EXTRA);
 
+        if (car == null) {
+            Toast.makeText(this, "Error loading car details", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         Log.d(TAG, car.toString());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setTitle(String.format("%s %s", car.getModelMake().getModel(), car.getModelMake().getMake()));
 
         // TODO : Loading View until standard price is retrieved
 
@@ -99,5 +109,15 @@ public class DetailedCarActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return false;
     }
 }

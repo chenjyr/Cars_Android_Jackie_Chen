@@ -59,7 +59,7 @@ public class ApiRequest extends AsyncTask<Void, String, String> {
         BufferedReader in = null;
         String result = null;
         try {
-            in = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
+            in = new BufferedReader(new InputStreamReader(new URL(url.replace(" ", "%20")).openStream()));
 
             StringBuilder sb = new StringBuilder();
             String inputLine;
