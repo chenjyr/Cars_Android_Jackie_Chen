@@ -59,8 +59,7 @@ public class ApiRequest extends AsyncTask<Void, String, String> {
         BufferedReader in = null;
         String result = null;
         try {
-            URL yahoo = new URL(url);
-            in = new BufferedReader(new InputStreamReader(yahoo.openStream()));
+            in = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
 
             StringBuilder sb = new StringBuilder();
             String inputLine;
