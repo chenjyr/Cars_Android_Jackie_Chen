@@ -6,7 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.example.axiomzencars.data.car.ModelMake;
+import com.example.axiomzencars.data.car.MakeModel;
 
 import android.util.Log;
 
@@ -19,14 +19,14 @@ public class WorstCarsForYearProcessor extends ResponseProcessor {
     }
 
     @Override
-    protected List<ModelMake> process() {
-        List<ModelMake> result = new ArrayList<ModelMake>();
+    protected List<MakeModel> process() {
+        List<MakeModel> result = new ArrayList<MakeModel>();
         try {
             JSONArray jsonCarsArray = new JSONArray(getContent());
             for (int i = 0; i < jsonCarsArray.length(); i++) {
-                String modelMake = jsonCarsArray.getString(0);
-                String[] params = modelMake.split(" ");
-                result.add(new ModelMake(params[0], params[1]));
+                String modelMake = jsonCarsArray.getString(i);
+                String[] params = modelMake.split(" ", 2);
+                result.add(new MakeModel(params[0], params[1]));
             }
         } catch (JSONException e) {
             Log.e(TAG, e.toString());

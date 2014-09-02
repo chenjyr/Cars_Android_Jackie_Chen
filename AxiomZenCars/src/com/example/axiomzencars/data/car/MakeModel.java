@@ -3,27 +3,27 @@ package com.example.axiomzencars.data.car;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ModelMake implements Parcelable {
+public class MakeModel implements Parcelable {
 
-    private String model;
     private String make;
+    private String model;
 
-    public ModelMake(String model, String make) {
-        this.model = model;
+    public MakeModel(String make, String model) {
         this.make = make;
+        this.model = model;
+    }
+
+    public String getMake() {
+        return make;
     }
 
     public String getModel() {
         return model;
     }
 
-    public String getMake() {
-        return make;
-    }
- 
     @Override
     public String toString() {
-        return "ModelMake [model=" + model + ", make=" + make + "]";
+        return "MakeModel [make=" + make + ", model=" + model + "]";
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ModelMake implements Parcelable {
         if (this == obj) return true;
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
-        ModelMake other = (ModelMake) obj;
+        MakeModel other = (MakeModel) obj;
         if (make == null) {
             if (other.make != null) return false;
         } else if (!make.equals(other.make)) return false;
@@ -57,21 +57,21 @@ public class ModelMake implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(model);
         dest.writeString(make);
+        dest.writeString(model);
     }
 
-    public static final Parcelable.Creator<ModelMake> CREATOR = new Parcelable.Creator<ModelMake>() {
+    public static final Parcelable.Creator<MakeModel> CREATOR = new Parcelable.Creator<MakeModel>() {
         @Override
-        public ModelMake createFromParcel(Parcel source) {
-            String model = source.readString();
+        public MakeModel createFromParcel(Parcel source) {
             String make = source.readString();
-            return new ModelMake(model, make);
+            String model = source.readString();
+            return new MakeModel(make, model);
         }
 
         @Override
-        public ModelMake[] newArray(int size) {
-            return new ModelMake[size];
+        public MakeModel[] newArray(int size) {
+            return new MakeModel[size];
         }
     };
 }

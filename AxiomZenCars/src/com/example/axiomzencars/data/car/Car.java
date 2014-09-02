@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Car implements Parcelable {
 
-    private ModelMake modelMake;
+    private MakeModel modelMake;
     private Year year;
     private Price price;
     private Description description;
@@ -13,7 +13,7 @@ public class Car implements Parcelable {
     private Boolean isBestCarForYear;
     private Boolean isWorstCarForYear;
 
-    public Car(ModelMake modelMake, Year year, Price price, Description description, Image image) {
+    public Car(MakeModel modelMake, Year year, Price price, Description description, Image image) {
         this.modelMake = modelMake;
         this.year = year;
         this.price = price;
@@ -21,11 +21,11 @@ public class Car implements Parcelable {
         this.image = image;
     }
 
-    public boolean isModelMake(ModelMake modelMake) {
+    public boolean isModelMake(MakeModel modelMake) {
         return modelMake != null && getModelMake().equals(modelMake);
     }
 
-    public ModelMake getModelMake() {
+    public MakeModel getModelMake() {
         return modelMake;
     }
 
@@ -122,7 +122,7 @@ public class Car implements Parcelable {
     public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
         @Override
         public Car createFromParcel(Parcel source) {
-            ModelMake modelMake = source.readParcelable(ModelMake.class.getClassLoader());
+            MakeModel modelMake = source.readParcelable(MakeModel.class.getClassLoader());
             Year year = source.readParcelable(Year.class.getClassLoader());
             Price price = source.readParcelable(Price.class.getClassLoader());
             Description description = source.readParcelable(Description.class.getClassLoader());

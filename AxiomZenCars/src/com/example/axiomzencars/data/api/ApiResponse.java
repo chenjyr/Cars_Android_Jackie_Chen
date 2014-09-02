@@ -4,15 +4,15 @@ import java.util.List;
 
 import com.example.axiomzencars.data.api.processor.ResponseProcessor;
 import com.example.axiomzencars.data.car.Car;
-import com.example.axiomzencars.data.car.ModelMake;
+import com.example.axiomzencars.data.car.MakeModel;
 import com.example.axiomzencars.data.car.Price;
 
 public class ApiResponse {
 
     private List<Car> availableCars;
     private Price standardPrice;
-    private List<ModelMake> bestCarsForYear;
-    private List<ModelMake> worstCarsForYear;
+    private List<MakeModel> bestCarsForYear;
+    private List<MakeModel> worstCarsForYear;
 
     @SuppressWarnings("unchecked")
     public ApiResponse process(RequestType requestType, String content) {
@@ -25,10 +25,10 @@ public class ApiResponse {
                 setStandardPrice((Price) processedResponse);
                 break;
             case BEST_CARS_FOR_YEAR:
-                setBestCarsForYear((List<ModelMake>) processedResponse);
+                setBestCarsForYear((List<MakeModel>) processedResponse);
                 break;
             case WORST_CARS_FOR_YEAR:
-                setWorstCarsForYear((List<ModelMake>) processedResponse);
+                setWorstCarsForYear((List<MakeModel>) processedResponse);
                 break;
             default:
         }
@@ -51,19 +51,19 @@ public class ApiResponse {
         this.standardPrice = standardPrice;
     }
 
-    public List<ModelMake> getBestCarsForYear() {
+    public List<MakeModel> getBestCarsForYear() {
         return bestCarsForYear;
     }
 
-    public void setBestCarsForYear(List<ModelMake> bestCarsForYear) {
+    public void setBestCarsForYear(List<MakeModel> bestCarsForYear) {
         this.bestCarsForYear = bestCarsForYear;
     }
 
-    public List<ModelMake> getWorstCarsForYear() {
+    public List<MakeModel> getWorstCarsForYear() {
         return worstCarsForYear;
     }
 
-    public void setWorstCarsForYear(List<ModelMake> worstCarsForYear) {
+    public void setWorstCarsForYear(List<MakeModel> worstCarsForYear) {
         this.worstCarsForYear = worstCarsForYear;
     }
 

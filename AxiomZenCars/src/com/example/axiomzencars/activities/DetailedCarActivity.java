@@ -6,11 +6,12 @@ import com.example.axiomzencars.data.api.ApiRequest;
 import com.example.axiomzencars.data.api.ApiRequest.OnTaskCompletedListener;
 import com.example.axiomzencars.data.api.ApiResponse;
 import com.example.axiomzencars.data.car.Car;
-import com.example.axiomzencars.data.car.ModelMake;
+import com.example.axiomzencars.data.car.MakeModel;
 import com.example.axiomzencars.data.car.Price;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -42,8 +43,6 @@ public class DetailedCarActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle(String.format("%s %s", car.getModelMake().getModel(), car.getModelMake().getMake()));
 
-        // TODO : Loading View until standard price is retrieved
-
         TextView carMakeTextView = (TextView) findViewById(R.id.car_make_text_view);
         TextView carModelTextView = (TextView) findViewById(R.id.car_model_text_view);
         TextView carYearTextView = (TextView) findViewById(R.id.car_year_text_view);
@@ -56,59 +55,13 @@ public class DetailedCarActivity extends Activity {
         carPriceTextView.setText(String.valueOf(car.getPrice().value()));
         carDescriptionTextView.setText(car.getDescription().getDescriptionText());
 
-        // TODO : Image loading view
+        downloadCarImage(findViewById(R.id.car_image_progress_indicator), (ImageView) findViewById(R.id.car_image_view));
 
-        final ImageView carImageView = (ImageView) findViewById(R.id.car_image_view);
+        downloadStandardPrice(findViewById(R.id.car_standard_price_progress_indicator),
+                (TextView) findViewById(R.id.car_standard_price_text_view));
 
-        new ImageDownloader(car.getImage().getUrl(), new ImageDownloader.OnImageDownloadedListener() {
-            @Override
-            public void onImageDownloaded(Bitmap bitmap) {
-                carImageView.setImageBitmap(bitmap);
-            }
-        }).execute();
-
-        final TextView carStandardPriceTextView = (TextView) findViewById(R.id.car_standard_price_text_view);
-
-        ApiRequest.requestStandardPrice(car, new OnTaskCompletedListener() {
-            @Override
-            public void onTaskCompleted(ApiResponse response) {
-                Price standardPrice = response.getStandardPrice();
-                if (standardPrice != null) {
-                    carStandardPriceTextView.setText(String.valueOf(standardPrice.value()));
-                    carStandardPriceTextView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        final TextView carBestOrWorstOfYearTextView = (TextView) findViewById(R.id.car_best_or_worst_of_year_text_view);
-
-        ApiRequest.requestBestCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
-            @Override
-            public void onTaskCompleted(ApiResponse response) {
-                if (response.getBestCarsForYear() != null) {
-                    for (ModelMake modelMake : response.getBestCarsForYear()) {
-                        if (car.isModelMake(modelMake)) {
-                            carBestOrWorstOfYearTextView.setText(String.format("Best of %d", car.getYear().value()));
-                            carBestOrWorstOfYearTextView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }
-        });
-
-        ApiRequest.requestWorstCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
-            @Override
-            public void onTaskCompleted(ApiResponse response) {
-                if (response.getWorstCarsForYear() != null) {
-                    for (ModelMake modelMake : response.getWorstCarsForYear()) {
-                        if (car.isModelMake(modelMake)) {
-                            carBestOrWorstOfYearTextView.setText(String.format("Worst of %d", car.getYear().value()));
-                            carBestOrWorstOfYearTextView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
-            }
-        });
+        downloadBestAndWorstOfYear(findViewById(R.id.car_best_or_worst_of_year_progress_indicator),
+                (TextView) findViewById(R.id.car_best_or_worst_of_year_text_view));
     }
 
     @Override
@@ -119,5 +72,64 @@ public class DetailedCarActivity extends Activity {
                 break;
         }
         return false;
+    }
+
+    private void downloadCarImage(final View progressIndicator, final ImageView imageView) {
+        new ImageDownloader(car.getImage().getUrl(), new ImageDownloader.OnImageDownloadedListener() {
+            @Override
+            public void onImageDownloaded(Bitmap bitmap) {
+                progressIndicator.setVisibility(View.GONE);
+                imageView.setImageBitmap(bitmap);
+            }
+        }).execute();
+    }
+
+    private void downloadStandardPrice(final View progressIndicator, final TextView textView) {
+        ApiRequest.requestStandardPrice(car, new OnTaskCompletedListener() {
+            @Override
+            public void onTaskCompleted(ApiResponse response) {
+                Price standardPrice = response.getStandardPrice();
+                if (standardPrice != null) {
+                    progressIndicator.setVisibility(View.GONE);
+                    textView.setText(String.valueOf(standardPrice.value()));
+                    textView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void downloadBestAndWorstOfYear(final View progressIndicator, final TextView textView) {
+        ApiRequest.requestBestCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
+            @Override
+            public void onTaskCompleted(ApiResponse response) {
+                if (response.getBestCarsForYear() != null) {
+                    for (MakeModel modelMake : response.getBestCarsForYear()) {
+                        if (car.isModelMake(modelMake)) {
+                            textView.setText(String.format("Best of %d", car.getYear().value()));
+                            textView.setTextColor(Color.GREEN);
+                            textView.setVisibility(View.VISIBLE);
+                            progressIndicator.setVisibility(View.GONE);
+                            return;
+                        }
+                    }
+                }
+                ApiRequest.requestWorstCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
+                    @Override
+                    public void onTaskCompleted(ApiResponse response) {
+                        if (response.getWorstCarsForYear() != null) {
+                            for (MakeModel modelMake : response.getWorstCarsForYear()) {
+                                if (car.isModelMake(modelMake)) {
+                                    textView.setText(String.format("Worst of %d", car.getYear().value()));
+                                    textView.setTextColor(Color.RED);
+                                    textView.setVisibility(View.VISIBLE);
+                                    break;
+                                }
+                            }
+                        }
+                        progressIndicator.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
     }
 }
