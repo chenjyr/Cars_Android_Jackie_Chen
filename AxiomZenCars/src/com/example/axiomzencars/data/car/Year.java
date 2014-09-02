@@ -1,6 +1,9 @@
 package com.example.axiomzencars.data.car;
 
-public class Year {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Year implements Parcelable {
 
     private int year;
 
@@ -34,4 +37,27 @@ public class Year {
         if (year != other.year) return false;
         return true;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(year);
+    }
+
+    public static final Parcelable.Creator<Year> CREATOR = new Parcelable.Creator<Year>() {
+        @Override
+        public Year createFromParcel(Parcel source) {
+            int year = source.readInt();
+            return new Year(year);
+        }
+
+        @Override
+        public Year[] newArray(int size) {
+            return new Year[size];
+        }
+    };
 }

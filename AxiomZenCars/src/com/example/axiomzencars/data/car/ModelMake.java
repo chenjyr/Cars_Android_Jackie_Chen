@@ -1,6 +1,9 @@
 package com.example.axiomzencars.data.car;
 
-public class ModelMake {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ModelMake implements Parcelable {
 
     private String model;
     private String make;
@@ -47,4 +50,28 @@ public class ModelMake {
         return true;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(model);
+        dest.writeString(make);
+    }
+
+    public static final Parcelable.Creator<ModelMake> CREATOR = new Parcelable.Creator<ModelMake>() {
+        @Override
+        public ModelMake createFromParcel(Parcel source) {
+            String model = source.readString();
+            String make = source.readString();
+            return new ModelMake(model, make);
+        }
+
+        @Override
+        public ModelMake[] newArray(int size) {
+            return new ModelMake[size];
+        }
+    };
 }

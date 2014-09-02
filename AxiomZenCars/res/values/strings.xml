@@ -4,5 +4,6 @@
     <string name="app_name">AxiomZenCars</string>
     <string name="splash_title">Axiom Zen Cars</string>
     <string name="splash_description">Built by Jackie Chen</string>
-
+    <string name="image_content_description">Car Image</string>
+    
 </resources>

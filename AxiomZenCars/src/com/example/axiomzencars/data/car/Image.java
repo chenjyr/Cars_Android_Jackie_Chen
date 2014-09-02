@@ -1,6 +1,9 @@
 package com.example.axiomzencars.data.car;
 
-public class Image {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Image implements Parcelable {
 
     private String url;
 
@@ -36,4 +39,27 @@ public class Image {
         } else if (!url.equals(other.url)) return false;
         return true;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(url);
+    }
+
+    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
+        @Override
+        public Image createFromParcel(Parcel source) {
+            String url = source.readString();
+            return new Image(url);
+        }
+
+        @Override
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
 }

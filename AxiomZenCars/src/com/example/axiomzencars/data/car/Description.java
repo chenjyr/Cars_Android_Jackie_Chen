@@ -1,6 +1,9 @@
 package com.example.axiomzencars.data.car;
 
-public class Description {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Description implements Parcelable {
 
     private String descriptionText;
 
@@ -37,4 +40,26 @@ public class Description {
         return true;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(descriptionText);
+    }
+
+    public static final Parcelable.Creator<Description> CREATOR = new Parcelable.Creator<Description>() {
+        @Override
+        public Description createFromParcel(Parcel source) {
+            String descriptionText = source.readString();
+            return new Description(descriptionText);
+        }
+
+        @Override
+        public Description[] newArray(int size) {
+            return new Description[size];
+        }
+    };
 }

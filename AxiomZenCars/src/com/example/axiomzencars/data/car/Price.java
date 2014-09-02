@@ -1,6 +1,9 @@
 package com.example.axiomzencars.data.car;
 
-public class Price {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Price implements Parcelable {
 
     private int price;
 
@@ -39,4 +42,26 @@ public class Price {
         return true;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(price);
+    }
+
+    public static final Parcelable.Creator<Price> CREATOR = new Parcelable.Creator<Price>() {
+        @Override
+        public Price createFromParcel(Parcel source) {
+            int price = source.readInt();
+            return new Price(price);
+        }
+
+        @Override
+        public Price[] newArray(int size) {
+            return new Price[size];
+        }
+    };
 }
