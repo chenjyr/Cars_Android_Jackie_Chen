@@ -1,7 +1,8 @@
-package com.example.axiomzencars.data;
+package com.example.axiomzencars.data.api;
 
 import java.util.List;
 
+import com.example.axiomzencars.data.api.processor.AvailableCarsProcessor;
 import com.example.axiomzencars.data.car.Car;
 import com.example.axiomzencars.data.car.Price;
 import com.example.axiomzencars.data.car.RankingCategory;
@@ -11,6 +12,22 @@ public class ApiResponse {
     private List<Car> availableCars;
     private Price standardPrice;
     private RankingCategory rankingCategory;
+
+    public ApiResponse process(RequestType requestType, String content) {
+        switch (requestType) {
+            case AVAILABLE_CARS:
+                setAvailableCars(new AvailableCarsProcessor(content).process());
+                break;
+            case BEST_CARS_FOR_YEAR:
+                break;
+            case STANDARD_PRICE:
+                break;
+            case WORST_CARS_FOR_YEAR:
+                break;
+            default:
+        }
+        return this;
+    }
 
     public List<Car> getAvailableCars() {
         return availableCars;

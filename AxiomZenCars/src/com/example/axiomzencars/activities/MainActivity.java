@@ -2,9 +2,9 @@ package com.example.axiomzencars.activities;
 
 import com.example.axiomzencars.R;
 
-import com.example.axiomzencars.data.ApiRequest;
-import com.example.axiomzencars.data.ApiRequest.OnTaskCompletedListener;
-import com.example.axiomzencars.data.ApiResponse;
+import com.example.axiomzencars.data.api.ApiRequest;
+import com.example.axiomzencars.data.api.ApiResponse;
+import com.example.axiomzencars.data.api.ApiRequest.OnTaskCompletedListener;
 
 import android.app.Activity;
 import android.app.Fragment;
