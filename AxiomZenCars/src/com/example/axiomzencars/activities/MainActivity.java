@@ -29,7 +29,28 @@ public class MainActivity extends Activity {
         ApiRequest.requestAvailableCars(new OnTaskCompletedListener() {
             @Override
             public void onTaskCompleted(ApiResponse response) {
-                System.out.println("TESTJC: " + response);
+                System.out.println("TESTJC: Available Cars - " + response);
+
+                ApiRequest.requestStandardPrice(response.getAvailableCars().get(0), new OnTaskCompletedListener() {
+                    @Override
+                    public void onTaskCompleted(ApiResponse response) {
+                        System.out.println("TESTJC: Standard Price - " + response);
+                    }
+                });
+            }
+        });
+
+        ApiRequest.requestBestCarsForYear(2000, new OnTaskCompletedListener() {
+            @Override
+            public void onTaskCompleted(ApiResponse response) {
+                System.out.println("TESTJC: Best Cars for 2009 - " + response);
+            }
+        });
+
+        ApiRequest.requestWorstCarsForYear(2000, new OnTaskCompletedListener() {
+            @Override
+            public void onTaskCompleted(ApiResponse response) {
+                System.out.println("TESTJC: Worst Cars for 2009 - " + response);
             }
         });
     }

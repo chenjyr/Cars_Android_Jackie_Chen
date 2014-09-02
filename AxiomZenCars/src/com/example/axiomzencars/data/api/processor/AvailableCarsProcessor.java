@@ -12,8 +12,7 @@ import android.util.Log;
 import com.example.axiomzencars.data.car.Car;
 import com.example.axiomzencars.data.car.Description;
 import com.example.axiomzencars.data.car.Image;
-import com.example.axiomzencars.data.car.Make;
-import com.example.axiomzencars.data.car.Model;
+import com.example.axiomzencars.data.car.ModelMake;
 import com.example.axiomzencars.data.car.Price;
 import com.example.axiomzencars.data.car.Year;
 
@@ -47,7 +46,7 @@ public class AvailableCarsProcessor extends ResponseProcessor {
                 String description = getStringValue(jsonCarObject, CAR_DESCRIPTION_KEY);
                 String imageUrl = getStringValue(jsonCarObject, CAR_IMAGE_URL_KEY);
 
-                result.add(new Car(new Make(make), new Model(model), new Year(Integer.valueOf(year)), new Price(price), new Description(
+                result.add(new Car(new ModelMake(model, make), new Year(Integer.valueOf(year)), new Price(price), new Description(
                         description), new Image(imageUrl)));
             }
         } catch (JSONException e) {

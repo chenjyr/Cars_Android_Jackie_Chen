@@ -1,18 +1,15 @@
 package com.example.axiomzencars.data.api.processor;
 
-import java.math.BigDecimal;
+import com.example.axiomzencars.data.car.Price;
 
 public class StandardPriceProcessor extends ResponseProcessor {
 
     public StandardPriceProcessor(String content) {
         super(content);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
-    protected BigDecimal process() {
-        // TODO Auto-generated method stub
-        return null;
+    protected Price process() {
+        return new Price(getContent());
     }
-
 }

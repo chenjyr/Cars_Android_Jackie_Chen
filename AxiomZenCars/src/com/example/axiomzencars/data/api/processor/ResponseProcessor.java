@@ -14,12 +14,12 @@ public abstract class ResponseProcessor {
         switch (requestType) {
             case AVAILABLE_CARS:
                 return new AvailableCarsProcessor(content).process();
-            case BEST_CARS_FOR_YEAR:
-                return new StandardPriceProcessor(content).process();
             case STANDARD_PRICE:
-                return new BestCarForYearProcessor(content).process();
+                return new StandardPriceProcessor(content).process();
+            case BEST_CARS_FOR_YEAR:
+                return new BestCarsForYearProcessor(content).process();
             case WORST_CARS_FOR_YEAR:
-                return new WorstCarForYearProcessor(content).process();
+                return new WorstCarsForYearProcessor(content).process();
             default:
                 return new Object();
         }

@@ -2,34 +2,24 @@ package com.example.axiomzencars.data.car;
 
 public class Car {
 
-    private Make make;
-    private Model model;
+    private ModelMake modelMake;
     private Year year;
     private Price price;
     private Description description;
     private Image image;
-    private RankingCategory rankingCategory;
+    private Boolean isBestCarForYear;
+    private Boolean isWorstCarForYear;
 
-    public Car(Make make, Model model, Year year, Price price, Description description, Image image) {
-        this(make, model, year, price, description, image, RankingCategory.UNKNOWN);
-    }
-
-    public Car(Make make, Model model, Year year, Price price, Description description, Image image, RankingCategory rankingCategory) {
-        this.make = make;
-        this.model = model;
+    public Car(ModelMake modelMake, Year year, Price price, Description description, Image image) {
+        this.modelMake = modelMake;
         this.year = year;
         this.price = price;
         this.description = description;
         this.image = image;
-        this.rankingCategory = rankingCategory;
     }
 
-    public Make getMake() {
-        return make;
-    }
-
-    public Model getModel() {
-        return model;
+    public ModelMake getModelMake() {
+        return modelMake;
     }
 
     public Year getYear() {
@@ -48,18 +38,25 @@ public class Car {
         return image;
     }
 
-    public RankingCategory getRankingCategory() {
-        return rankingCategory;
+    public Boolean getIsBestCarForYear() {
+        return isBestCarForYear;
     }
 
-    public void setRankingCategory(RankingCategory rankingCategory) {
-        this.rankingCategory = rankingCategory;
+    public void setIsBestCarForYear(Boolean isBestCarForYear) {
+        this.isBestCarForYear = isBestCarForYear;
+    }
+
+    public Boolean getIsWorstCarForYear() {
+        return isWorstCarForYear;
+    }
+
+    public void setIsWorstCarForYear(Boolean isWorstCarForYear) {
+        this.isWorstCarForYear = isWorstCarForYear;
     }
 
     @Override
     public String toString() {
-        return "Car [make=" + make + ", model=" + model + ", year=" + year + ", price=" + price + ", description=" + description
-                + ", image=" + image + ", rankingCategory=" + rankingCategory + "]";
+        return "Car [modelMake=" + modelMake + ", year=" + year + ", price=" + price + ", description=" + description + ", image=" + image
+                + ", isBestCarForYear=" + isBestCarForYear + ", isWorstCarForYear=" + isWorstCarForYear + "]";
     }
-
 }

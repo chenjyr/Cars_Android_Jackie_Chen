@@ -1,20 +1,18 @@
 package com.example.axiomzencars.data.car;
 
-import java.math.BigDecimal;
-
 public class Price {
 
-    private BigDecimal price;
+    private int price;
 
     public Price(String price) {
-        this(new BigDecimal(price));
+        this(Integer.valueOf(price));
     }
 
-    public Price(BigDecimal price) {
+    public Price(int price) {
         this.price = price;
     }
 
-    public BigDecimal getPrice() {
+    public int value() {
         return price;
     }
 
