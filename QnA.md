@@ -21,29 +21,30 @@ List a two or three features that you are unlikely to have time to implement tha
 
 How long did this assignment take (in hours)?
 
->
+> 8-10 hours.
 
 
 What was the hardest part?
 
->
+> Determining the design for API calls.
 
 
 If you could go back and give yourself advice at the beginning of the project, what would it be?
 
->
+> Can't think of any.
 
 
 Did you learn anything new?
 
->
+> How to implement Parcelable to pass data around activities without involving a database or shared preferences.
 
 
 Do you feel that this assignment allowed you to showcase your abilities effectively?
 
->
+> Yes, somewhat.
 
 
 Are there any Android-related skills that you weren't able to demonstrate in this excercise? If so, what are they?
 
->
+> Probably working with fragments and just more complex UI in general, given the time constraints on my end. 
+Also working with an SQLite database.
