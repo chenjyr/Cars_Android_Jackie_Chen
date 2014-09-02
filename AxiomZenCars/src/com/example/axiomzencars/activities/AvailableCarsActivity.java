@@ -30,7 +30,7 @@ public class AvailableCarsActivity extends Activity implements OnItemClickListen
 
         final View availableCarsProgressIndicator = findViewById(R.id.available_cars_progress_indicator);
 
-        ApiRequest.requestAvailableCars(new OnTaskCompletedListener() {
+        ApiRequest.requestAvailableCars(this, new OnTaskCompletedListener() {
             @Override
             public void onTaskCompleted(ApiResponse response) {
                 availableCarsListAdapter = new CarArrayAdapter(AvailableCarsActivity.this, response.getAvailableCars());

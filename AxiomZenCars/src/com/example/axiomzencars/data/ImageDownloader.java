@@ -40,7 +40,7 @@ public class ImageDownloader extends AsyncTask<Void, String, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        if (listener != null) {
+        if (listener != null && bitmap != null) {
             listener.onImageDownloaded(bitmap);
         }
     }

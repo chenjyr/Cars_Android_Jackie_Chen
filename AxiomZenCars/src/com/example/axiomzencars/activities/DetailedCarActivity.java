@@ -86,7 +86,7 @@ public class DetailedCarActivity extends Activity {
 
     private void downloadStandardPrice(final View progressIndicator, final TextView standardPriceTextView,
             final TextView priceDifferenceTextView) {
-        ApiRequest.requestStandardPrice(car, new OnTaskCompletedListener() {
+        ApiRequest.requestStandardPrice(this, car, new OnTaskCompletedListener() {
             @Override
             public void onTaskCompleted(ApiResponse response) {
                 Price standardPrice = response.getStandardPrice();
@@ -108,7 +108,7 @@ public class DetailedCarActivity extends Activity {
     }
 
     private void downloadBestAndWorstOfYear(final View progressIndicator, final TextView textView) {
-        ApiRequest.requestBestCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
+        ApiRequest.requestBestCarsForYear(this, car.getYear().value(), new OnTaskCompletedListener() {
             @Override
             public void onTaskCompleted(ApiResponse response) {
                 if (response.getBestCarsForYear() != null) {
@@ -122,7 +122,7 @@ public class DetailedCarActivity extends Activity {
                         }
                     }
                 }
-                ApiRequest.requestWorstCarsForYear(car.getYear().value(), new OnTaskCompletedListener() {
+                ApiRequest.requestWorstCarsForYear(DetailedCarActivity.this, car.getYear().value(), new OnTaskCompletedListener() {
                     @Override
                     public void onTaskCompleted(ApiResponse response) {
                         if (response.getWorstCarsForYear() != null) {

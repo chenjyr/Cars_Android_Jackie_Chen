@@ -6,8 +6,10 @@ import java.net.URL;
 
 import com.example.axiomzencars.data.car.Car;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ApiRequest extends AsyncTask<Void, String, String> {
 
@@ -23,31 +25,34 @@ public class ApiRequest extends AsyncTask<Void, String, String> {
     private static final String API_BEST_CARS_FOR_YEAR_PATH = "best/<year>";
     private static final String API_WORST_CARS_FOR_YEAR_PATH = "worst/<year>";
 
-    public static void requestAvailableCars(OnTaskCompletedListener listener) {
-        new ApiRequest(RequestType.AVAILABLE_CARS, String.format("%s%s", API_ENDPOINT, API_AVAILABLE_CARS_PATH), listener).execute();
+    public static void requestAvailableCars(Context context, OnTaskCompletedListener listener) {
+        new ApiRequest(context, RequestType.AVAILABLE_CARS, String.format("%s%s", API_ENDPOINT, API_AVAILABLE_CARS_PATH), listener)
+                .execute();
     }
 
-    public static void requestStandardPrice(Car car, OnTaskCompletedListener listener) {
+    public static void requestStandardPrice(Context context, Car car, OnTaskCompletedListener listener) {
         String apiRequestPath = API_STANDARD_PRICE_PATH.replace("<make>", car.getModelMake().getMake())
                 .replace("<model>", car.getModelMake().getModel()).replace("<year>", String.valueOf(car.getYear().value()));
-        new ApiRequest(RequestType.STANDARD_PRICE, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
+        new ApiRequest(context, RequestType.STANDARD_PRICE, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
     }
 
-    public static void requestBestCarsForYear(int year, OnTaskCompletedListener listener) {
+    public static void requestBestCarsForYear(Context context, int year, OnTaskCompletedListener listener) {
         String apiRequestPath = API_BEST_CARS_FOR_YEAR_PATH.replace("<year>", String.valueOf(year));
-        new ApiRequest(RequestType.BEST_CARS_FOR_YEAR, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
+        new ApiRequest(context, RequestType.BEST_CARS_FOR_YEAR, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
     }
 
-    public static void requestWorstCarsForYear(int year, OnTaskCompletedListener listener) {
+    public static void requestWorstCarsForYear(Context context, int year, OnTaskCompletedListener listener) {
         String apiRequestPath = API_WORST_CARS_FOR_YEAR_PATH.replace("<year>", String.valueOf(year));
-        new ApiRequest(RequestType.WORST_CARS_FOR_YEAR, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
+        new ApiRequest(context, RequestType.WORST_CARS_FOR_YEAR, String.format("%s%s", API_ENDPOINT, apiRequestPath), listener).execute();
     }
 
+    private Context context;
     private RequestType requestType;
     private String url;
     private OnTaskCompletedListener listener;
 
-    private ApiRequest(RequestType requestType, String url, OnTaskCompletedListener listener) {
+    private ApiRequest(Context context, RequestType requestType, String url, OnTaskCompletedListener listener) {
+        this.context = context;
         this.requestType = requestType;
         this.url = url;
         this.listener = listener;
@@ -84,7 +89,9 @@ public class ApiRequest extends AsyncTask<Void, String, String> {
 
     @Override
     protected void onPostExecute(String content) {
-        if (listener != null) {
+        if (content == null) {
+            Toast.makeText(context, "Error retrieving data", Toast.LENGTH_SHORT).show();
+        } else if (listener != null) {
             listener.onTaskCompleted(new ApiResponse().process(requestType, content));
         }
     }
