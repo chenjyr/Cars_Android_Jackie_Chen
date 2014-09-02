@@ -58,7 +58,7 @@ public class DetailedCarActivity extends Activity {
         downloadCarImage(findViewById(R.id.car_image_progress_indicator), (ImageView) findViewById(R.id.car_image_view));
 
         downloadStandardPrice(findViewById(R.id.car_standard_price_progress_indicator),
-                (TextView) findViewById(R.id.car_standard_price_text_view));
+                (TextView) findViewById(R.id.car_standard_price_text_view), (TextView) findViewById(R.id.car_price_difference_text_view));
 
         downloadBestAndWorstOfYear(findViewById(R.id.car_best_or_worst_of_year_progress_indicator),
                 (TextView) findViewById(R.id.car_best_or_worst_of_year_text_view));
@@ -84,15 +84,24 @@ public class DetailedCarActivity extends Activity {
         }).execute();
     }
 
-    private void downloadStandardPrice(final View progressIndicator, final TextView textView) {
+    private void downloadStandardPrice(final View progressIndicator, final TextView standardPriceTextView,
+            final TextView priceDifferenceTextView) {
         ApiRequest.requestStandardPrice(car, new OnTaskCompletedListener() {
             @Override
             public void onTaskCompleted(ApiResponse response) {
                 Price standardPrice = response.getStandardPrice();
                 if (standardPrice != null) {
                     progressIndicator.setVisibility(View.GONE);
-                    textView.setText(String.valueOf(standardPrice.value()));
-                    textView.setVisibility(View.VISIBLE);
+                    standardPriceTextView.setText(String.valueOf(standardPrice.value()));
+                    int priceDifference = car.getPrice().value() - standardPrice.value();
+                    if (priceDifference < 0) {
+                        priceDifferenceTextView.setTextColor(Color.rgb(0, 150, 0));
+                        priceDifferenceTextView.setText(String.format("%d", priceDifference));
+                    } else if (priceDifference > 0) {
+                        priceDifferenceTextView.setTextColor(Color.rgb(180, 0, 0));
+                        priceDifferenceTextView.setText(String.format("+%d", priceDifference));
+                    }
+                    standardPriceTextView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -106,7 +115,7 @@ public class DetailedCarActivity extends Activity {
                     for (MakeModel modelMake : response.getBestCarsForYear()) {
                         if (car.isModelMake(modelMake)) {
                             textView.setText(String.format("Best of %d", car.getYear().value()));
-                            textView.setTextColor(Color.GREEN);
+                            textView.setTextColor(Color.rgb(0, 150, 0));
                             textView.setVisibility(View.VISIBLE);
                             progressIndicator.setVisibility(View.GONE);
                             return;
@@ -120,7 +129,7 @@ public class DetailedCarActivity extends Activity {
                             for (MakeModel modelMake : response.getWorstCarsForYear()) {
                                 if (car.isModelMake(modelMake)) {
                                     textView.setText(String.format("Worst of %d", car.getYear().value()));
-                                    textView.setTextColor(Color.RED);
+                                    textView.setTextColor(Color.rgb(180, 0, 0));
                                     textView.setVisibility(View.VISIBLE);
                                     break;
                                 }

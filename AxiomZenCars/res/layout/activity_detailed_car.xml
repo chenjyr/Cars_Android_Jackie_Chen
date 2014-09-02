@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="2" >
@@ -90,11 +90,24 @@
                     android:layout_height="30dp"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/car_price_text_view"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/car_price_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/car_price_difference_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -141,8 +154,7 @@
             android:id="@+id/car_description_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:padding="10dp" />
+            android:layout_marginBottom="20dp" />
 
         <FrameLayout
             android:layout_width="match_parent"

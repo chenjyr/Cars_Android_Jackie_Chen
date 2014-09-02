@@ -10,8 +10,6 @@ public class Car implements Parcelable {
     private Price price;
     private Description description;
     private Image image;
-    private Boolean isBestCarForYear;
-    private Boolean isWorstCarForYear;
 
     public Car(MakeModel modelMake, Year year, Price price, Description description, Image image) {
         this.modelMake = modelMake;
@@ -45,26 +43,10 @@ public class Car implements Parcelable {
         return image;
     }
 
-    public Boolean getIsBestCarForYear() {
-        return isBestCarForYear;
-    }
-
-    public void setIsBestCarForYear(Boolean isBestCarForYear) {
-        this.isBestCarForYear = isBestCarForYear;
-    }
-
-    public Boolean getIsWorstCarForYear() {
-        return isWorstCarForYear;
-    }
-
-    public void setIsWorstCarForYear(Boolean isWorstCarForYear) {
-        this.isWorstCarForYear = isWorstCarForYear;
-    }
-
     @Override
     public String toString() {
         return "Car [modelMake=" + modelMake + ", year=" + year + ", price=" + price + ", description=" + description + ", image=" + image
-                + ", isBestCarForYear=" + isBestCarForYear + ", isWorstCarForYear=" + isWorstCarForYear + "]";
+                + "]";
     }
 
     @Override
@@ -115,8 +97,6 @@ public class Car implements Parcelable {
         dest.writeParcelable(price, flags);
         dest.writeParcelable(description, flags);
         dest.writeParcelable(image, flags);
-        dest.writeValue(isBestCarForYear);
-        dest.writeValue(isWorstCarForYear);
     }
 
     public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
@@ -127,14 +107,8 @@ public class Car implements Parcelable {
             Price price = source.readParcelable(Price.class.getClassLoader());
             Description description = source.readParcelable(Description.class.getClassLoader());
             Image image = source.readParcelable(Image.class.getClassLoader());
-            Boolean isBestCarForYear = (Boolean) source.readValue(Boolean.class.getClassLoader());
-            Boolean isWorstCarForYear = (Boolean) source.readValue(Boolean.class.getClassLoader());
 
-            Car car = new Car(modelMake, year, price, description, image);
-            car.setIsBestCarForYear(isBestCarForYear);
-            car.setIsWorstCarForYear(isWorstCarForYear);
-
-            return car;
+            return new Car(modelMake, year, price, description, image);
         }
 
         @Override
