@@ -20,7 +20,7 @@ public class ModelMake implements Parcelable {
     public String getMake() {
         return make;
     }
-
+ 
     @Override
     public String toString() {
         return "ModelMake [model=" + model + ", make=" + make + "]";

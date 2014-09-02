@@ -21,6 +21,10 @@ public class Car implements Parcelable {
         this.image = image;
     }
 
+    public boolean isModelMake(ModelMake modelMake) {
+        return modelMake != null && getModelMake().equals(modelMake);
+    }
+
     public ModelMake getModelMake() {
         return modelMake;
     }

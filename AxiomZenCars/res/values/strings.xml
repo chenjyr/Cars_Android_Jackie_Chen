@@ -5,5 +5,10 @@
     <string name="splash_title">Axiom Zen Cars</string>
     <string name="splash_description">Built by Jackie Chen</string>
     <string name="image_content_description">Car Image</string>
-    
+    <string name="model">Model</string>
+    <string name="make">Make</string>
+    <string name="year">Year</string>
+    <string name="price">Price</string>
+    <string name="standard_price">Standard Price</string>
+
 </resources>
