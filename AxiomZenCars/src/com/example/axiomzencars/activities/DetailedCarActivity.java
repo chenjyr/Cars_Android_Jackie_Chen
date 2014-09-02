@@ -41,7 +41,7 @@ public class DetailedCarActivity extends Activity {
         Log.d(TAG, car.toString());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setTitle(String.format("%s %s", car.getModelMake().getModel(), car.getModelMake().getMake()));
+        getActionBar().setTitle(String.format("%s %s", car.getModelMake().getMake(), car.getModelMake().getModel()));
 
         TextView carMakeTextView = (TextView) findViewById(R.id.car_make_text_view);
         TextView carModelTextView = (TextView) findViewById(R.id.car_model_text_view);
